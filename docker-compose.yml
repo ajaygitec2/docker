@@ -1,0 +1,33 @@
+version: '3'
+services:
+
+  backend:
+    image: ajayec/backend_code:latest
+
+    ports:
+      - "5030:5030"
+    environment:
+      MYSQL_HOST: db_02
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_DB: mydb
+    depends_on:
+      - db_02
+
+  db_02:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    volumes:
+      - ./message.sql:/docker-entrypoint-initdb.d/message.sql
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
+~                                                                                                                                                                         
+~                   
